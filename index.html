@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>what the heck is service catalog?</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown>
+					<textarea data-template>
+						## Hello Kubernetes? 
+
+						I'd like to order a MySQL from your catalog.
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Me: 
+
+						* Software Engineer @ Azure
+						* Open Service Broker for Azure
+						* @jrrickard
+						* github.com/jeremyrickard
+
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						![we make complicated stuff now](images/services-and-databases-kenny-b.png)<!-- .element height="65%" width="65%" -->
+
+						Credit: [Kenny Bastani](https://github.com/kbastani/spring-cloud-event-sourcing-example)
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						### How do we deploy all these things?
+					</textarea>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+						### Helm to the rescue?
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+					* [cockroachdb](https://github.com/kubernetes/charts/tree/master/stable/cockroachdb)
+					* [mariadb](https://github.com/kubernetes/charts/tree/master/stable/mariadb)
+					* [mongdb](https://github.com/kubernetes/charts/tree/master/stable/mongodb)
+					* [neo4j](https://github.com/kubernetes/charts/tree/master/stable/neo4j)
+					* [postgresql](https://github.com/kubernetes/charts/tree/master/stable/postgresql)
+					* [redis](https://github.com/kubernetes/charts/tree/master/stable/redis-ha)
+						</textarea>
+					</section>
+					<section>
+						<pre>
+							<code data-trim data-noescape>
+				dependenciess:
+					- name: postgresql
+					version: 0.8.7
+					repository: https://kubernetes-charts.storage.googleapis.com/
+							</code>
+						</pre>
+					</section>
+					<section>
+						<pre>
+							<code data-trim data-noescape>
+				helm install --name artifactory stable/artifactory
+							</code>
+						</pre>
+					</section>
+					<section>
+					<pre>
+							<code data-trim data-noescape>
+==> v1/Secret
+NAME                    TYPE    DATA  AGE
+artifactory-postgresql  Opaque  1     1s
+
+==> v1/PersistentVolumeClaim
+NAME                     STATUS   VOLUME   CAPACITY  ACCESS MODES  STORAGECLASS  AGE
+artifactory-postgresql   Pending  default  1s
+
+==> v1/Service
+NAME                           TYPE          CLUSTER-IP    EXTERNAL-IP  PORT(S)                     AGE
+artifactory-postgresql         ClusterIP     10.0.144.178  <none>       5432/TCP                    1s
+
+==> v1beta1/Deployment
+NAME                           DESIRED  CURRENT  UP-TO-DATE  AVAILABLE  AGE
+artifactory-postgresql         1        1        1           0          1s
+						</code>
+					</pre>
+				</section>
+				</section>
+				<section>
+					<section>
+						<div class="tweet" data-src="https://twitter.com/kelseyhightower/status/963413508300812295" style="margin: 0px; position: absolute; left: 50%; transform: translate(-50%, 0%);"><blockquote class="twitter-tweet twitter-tweet-error" data-lang="en" data-twitter-extracted-i1522030506752952507="true"><a href="https://twitter.com/kelseyhightower/status/963413508300812295">Tweet</a></blockquote></div>
+					</section>
+					<section>
+						<div class="tweet" data-src="https://twitter.com/kelseyhightower/status/963418681148502016" style="margin: 0px; position: absolute; left: 50%; transform: translate(-50%, 0%);"><blockquote class="twitter-tweet twitter-tweet-error" data-lang="en" data-twitter-extracted-i1522030506752952507="true"><a href="https://twitter.com/kelseyhightower/status/963418681148502016">Tweet</a></blockquote></div>
+					</section>
+				</section>
+				<section data-markdown>
+						<textarea data-template>
+						### That's great...how? 
+						</textarea>
+					</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+						### Service Catalog 
+						</textarea>
+					</section>
+					<section  data-markdown>
+						<textarea data-template>
+					 extension API that enables applications running **_in Kubernetes_** clusters to easily use **_external_** managed software offerings, such as a datastore service offered by a cloud provider via the Open Service Broker API.
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							### Service Broker
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							* Provision
+							* Bind
+							* Update
+							* Unbind
+							* Deprovision
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							### How?
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### ClusterServiceBroker
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### ClusterServiceClass
+
+							* MySQL 
+							* MongoDB
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### ClusterServicePlan
+
+							* Free
+							* $$$
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### ServiceInstance
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### ServiceBinding
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+					### And then?
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+					![tell me tell me](images/secret.jpg)<!-- .element height="65%" width="65%" -->
+						</textarea>
+					</section>
+				</section>
+				
+				<section data-markdown>
+					<textarea data-template>
+					### To helm and back
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						### svc-cat resources are just resources
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						### Use conditionals: svc-cat or not
+					</textarea>
+				</section>
+				]<section data-markdown>
+					<textarea data-template>
+						### Use the secret
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						### upgrade!
+					</textarea>
+				</section>
+				</section>	<section  data-markdown>
+					<textarea data-template>
+						### Demo
+					</textarea>
+				</section>
+				<section  data-markdown>
+					<textarea data-template>
+						### Questions
+					</textarea>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/embed-tweet/embed-tweet.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
