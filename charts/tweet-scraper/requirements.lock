@@ -1,0 +1,6 @@
+dependencies:
+- name: cosmosdb
+  repository: https://chartmuseum.jeremyrickard.com/
+  version: 1.0.0
+digest: sha256:db7a3b7e3ebb626b1af1e36917dc9f45a89058ca7e5f32f123fedd043df96dd7
+generated: 2018-05-02T15:55:39.344933666+02:00

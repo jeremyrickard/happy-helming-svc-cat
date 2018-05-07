@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Chart to Create a CosmosDB with MongoDB API
+name: cosmosdb
+version: 1.0.0

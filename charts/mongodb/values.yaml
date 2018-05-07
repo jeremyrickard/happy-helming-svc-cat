@@ -1,0 +1,6 @@
+
+instance:
+  name: cosmosdb
+  local: false
+azure:
+  location: westeurope 

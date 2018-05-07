@@ -1,0 +1,5 @@
+dependencies:
+- name: cosmosdb
+  version: 1.0.0
+  condition: database.create
+  repository: https://chartmuseum.jeremyrickard.com/

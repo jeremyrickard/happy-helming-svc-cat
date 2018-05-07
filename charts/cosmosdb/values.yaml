@@ -1,0 +1,3 @@
+instance:
+  name: cosmosdb
+  location: westeurope 

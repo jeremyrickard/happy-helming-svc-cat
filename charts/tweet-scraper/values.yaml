@@ -1,0 +1,18 @@
+replicaCount: 1
+twitterSecret: twitter-secret 
+tweety:
+  repository: jeremyrickard/tweety 
+  tag: latest
+  pullPolicy: Always
+scraper:
+  repository: jeremyrickard/tweets 
+  tag: latest
+  pullPolicy: Always
+service:
+  name: tweets 
+  type: NodePort
+  externalPort: 80
+  internalPort: 8080
+database:
+  create: false
+  instance: cosmosdb
